@@ -18,6 +18,16 @@ import {
 } from "./level4.instructions";
 import { infoContent } from "./level4.info";
 
+const isDeployed = () => {
+  const origin = window.origin;
+
+  return (
+    origin.endsWith(".vercel.app") ||
+    origin.endsWith(".netlify.app") ||
+    origin.endsWith(".github.io")
+  );
+};
+
 export const Level4 = ({
   onLevelAccepted,
   currentLevel,
@@ -28,10 +38,8 @@ export const Level4 = ({
   const [accepted, setAccepted] = useState(false);
   const [confetti, setConfetti] = useState(0);
 
-  const isDeployed = window.origin.endsWith(".vercel.app");
-
   const checkDeploy = () => {
-    if (isDeployed) {
+    if (isDeployed()) {
       setAccepted(true);
       setConfetti(500);
       setTimeout(() => setConfetti(0), 10000);
